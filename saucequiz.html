@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>What Kind of Soy Sauce Are You?</title>    
+<link rel="stylesheet" type="text/css" href="sauce_styles.css">
+
+<style>
+
+  .choice { display: block; }
+</style>
+</head>
+<body style="background:url(http://cdn.shopify.com/s/files/1/0175/3024/products/Mr_Perswall_Natural_Bamboo_Gaudion_Furniture2.PNG?v=1500096090">
+
+<script>
+
+var weights = [
+  // Question 1
+  [[-6, 0, -8, 10], [10, -6, 0, -8], [-2, 3, 10, 2], [-8, 10, -7, 2]],
+  
+  // Question 2
+  [[-6, 0, -8, 10], [10, -6, 0, -8], [-2, 3, 10, 2], [-8, 10, -7, 2]],
+  
+  // Question 3
+  [[0, 10, -8, -6], [2, 0, -6, 10], [10, -8, -6, 0], [-8, 1, 10, 6]],
+  
+  // Question 4
+  [[-6, 0, -8, 10], [10, -6, 0, -8], [-2, 3, 10, 2], [-8, 10, -7, 2]],
+  
+  // Question 5
+  [[10, 2, -8, 1], [0, 1, 10, -8], [2, 10, -6, -8], [0, -2, 6, 10]],
+  
+  // Question 6
+  [[-7, 10, 0, -3], [10, 0, 6, -8], [0, 6, -3, 10], [1, -6, 10, -8]],
+  
+  // Question 7
+  [[0, 10, 2, 4], [10, -8, -6, 0], [2, 3, 10, 6], [1, 0, -3, 10]],
+  
+  // Question 8
+  [[10, 2, -8, -3], [-2, 10, -8, 3], [-7, -8, 10, 1], [-6, 2, -8, 10]],
+  
+  // Question 9
+  [[3, 10, -6, -2], [0, 0, 3, 10], [-9, 7, 10, -2], [10, -2, 6, -8]],
+  
+  // Question 10
+  [[3, 10, -6, 0], [10, 1, -8, 4], [3, 6, 10, 1], [-3, 0, 2, 10]],
+]
+
+var always_show = false
+
+</script>
+<p></p>
+
+<div style="background:rgba(0,0,0,0.6); margin-right:700px"> 
+<p><h1 style="color:#00cc66">What Kind of </p><p>Soy Sauce</p><p> Are You?&nbsp;</h1><img src="data:image/jpeg;base64,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"/></p>
+<link href="https://fonts.googleapis.com/css?family=Rammetto+One" rel="stylesheet">
+<ol>
+
+<div style="color:white; font-family:courier;">
+
+<li><b class="clr">Which anime character do you prefer?</b>
+ 
+<label class="choice"><input type="radio" name="q1" value="a1" />Majin Buu</label> 
+<label class="choice"><input type="radio" name="q1" value="a2" />Edward Elrick</label> 
+<label class="choice"><input type="radio" name="q1" value="a3" />Saitama</label> 
+<label class="choice"><input type="radio" name="q1" value="a4" />Levi</label> 
+<p></p>
+
+<li><b class="clr">Which snack do you like to eat?</b>
+<label class="choice"><input type="radio" name="q2" value="a1" />Popcorn</label> 
+<label class="choice"><input type="radio" name="q2" value="a2" />Dried Mangoes</label> 
+<label class="choice"><input type="radio" name="q2" value="a3" />Pretzels</label> 
+<label class="choice"><input type="radio" name="q2" value="a4" />Grapes</label>
+<p></p>
+
+<li><b class="clr">Which place do you see yourself visiting first?</b>
+<label class="choice"><input type="radio" name="q3" value="a1" />Switzerland</label> 
+<label class="choice"><input type="radio" name="q3" value="a2" />Indonesia</label> 
+<label class="choice"><input type="radio" name="q3" value="a3" />Vietnam</label> 
+<label class="choice"><input type="radio" name="q3" value="a4" />Japan</label>
+<p></p>
+
+<li><b class="clr">Which colour do you prefer?</b>
+<label class="choice"><input type="radio" name="q4" value="a1" />Green</label> 
+<label class="choice"><input type="radio" name="q4" value="a2" />Blue</label> 
+<label class="choice"><input type="radio" name="q4" value="a3" />Yellow</label> 
+<label class="choice"><input type="radio" name="q4" value="a4" />Red</label>
+<p></p>
+
+<li><b class="clr"> Which season do you prefer?</b>
+<label class="choice"><input type="radio" name="q5" value="a1" />Winter</label> 
+<label class="choice"><input type="radio" name="q5" value="a2" />Spring</label> 
+<label class="choice"><input type="radio" name="q5" value="a3" />Summer</label> 
+<label class="choice"><input type="radio" name="q5" value="a4" />Autumn</label>
+<p></p>
+
+<li><b class="clr"> Which chip seasoning do you prefer?</b>
+<label class="choice"><input type="radio" name="q6" value="a1" />Ketchup</label> 
+<label class="choice"><input type="radio" name="q6" value="a2" />Original</label> 
+<label class="choice"><input type="radio" name="q6" value="a3" />Barbecue</label> 
+<label class="choice"><input type="radio" name="q6" value="a4" />Sea Salt</label>
+<p></p>
+
+<li><b class="clr"> What do you prefer to drink?</b>
+<label class="choice"><input type="radio" name="q7" value="a1" />Tea</label> 
+<label class="choice"><input type="radio" name="q7" value="a2" />Coffee</label> 
+<label class="choice"><input type="radio" name="q7" value="a3" />Water</label> 
+<label class="choice"><input type="radio" name="q7" value="a4" />Juice</label>
+<p></p>
+
+<li><b class="clr"> Which animal do you prefer?</b>
+<label class="choice"><input type="radio" name="q8" value="a1" />Beluga</label> 
+<label class="choice"><input type="radio" name="q8" value="a2" />Camel</label> 
+<label class="choice"><input type="radio" name="q8" value="a3" />Humming Bird</label> 
+<label class="choice"><input type="radio" name="q8" value="a4" />Iguana</label>
+<p></p>
+
+<li><b class="clr"> What is your element?</b>
+<label class="choice"><input type="radio" name="q9" value="a1" />Fire</label> 
+<label class="choice"><input type="radio" name="q9" value="a2" />Earth</label> 
+<label class="choice"><input type="radio" name="q9" value="a3" />Wind</label> 
+<label class="choice"><input type="radio" name="q9" value="a4" />Water</label>
+<p></p>
+
+<li><b class="clr"> Which sport do you prefer?</b>
+<label class="choice"><input type="radio" name="q10" value="a1" />Table Tennis</label> 
+<label class="choice"><input type="radio" name="q10" value="a2" />Snowboarding</label> 
+<label class="choice"><input type="radio" name="q10" value="a3" />Badminton</label> 
+<label class="choice"><input type="radio" name="q10" value="a4" />Running</label>
+</div>
+</ol>
+
+<button type="button" onclick="select()" style="color:#ff8c1a; font-weight:bold;">Click here to find out!</button></p>
+
+<div id="incomplete">
+<p style="color:red; font-style:italic; font-size:200%; font-weight:bold;">You have not answered all of the questions yet.
+</div>
+
+<p>
+<center><div id="r1">
+  <div class="move">
+<p class="res">You are Maggi "Soy" Sauce!</p><p style="color:white; font-size:150%;"> You are the most versatile and it helps that <br>you have travelled to many countries. Your life is rich <br> with these experiences which is what makes you more <br> complex and have a potent effect on people. Like this no-soy<br> soy-like sauce, you always take things to the next level. </p>
+<p><img src="https://i5.walmartimages.ca/images/Enlarge/008/708/999999-67073008708.jpg" height="500" width="350"/></p>
+  </div>
+</div>
+
+<p>
+<div id="r2">
+  <div class="move">
+<p class="res">You are Pearl River Bridge<br> Soy Sauce!</p><p style="color:white; font-size:150%;"> Your confidence and strong sense of belief makes you<br> a natural leader wherever you go. However, this may<br> lead to you being 'salty' (like this sauce) or upset when things <br>don't go your way. Like this soy sauce, you have to lighten up. </p> 
+<p><img src="https://www.chillinoodle.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/p/e/pearl-river-bridge-light-soy-sauce-600ml.jpg" height="500" width="350"/></p>
+  </div>
+</div>
+
+<p>
+<center><div id="r3">
+  <div class="move">
+<p class="res">You are Kikkoman Soy Sauce!</p><p style="color:white; font-size:150%;"> Your compassion and kindness bring good vibes <br>every where you go. People tend to describe your <br> personality as a blend of sweet, sour and spicy <br> which is what makes you so fun and exciting. </p>
+<p><img src="http://www.ichiban.ec/wp-content/uploads/prod/068.png" height="500" width="350"/></p> 
+  </div>
+</div>
+
+<p>
+<div id="r4">
+  <div class="move">
+<p class="res">You are ABC Kecap Manis<br> Sweet Soy Sauce!</p><p style="color:white; font-size:150%;"> You're often the underdog in a group with your nutty<br> and sweet-like-syrup personality. People often say<br>that you're not what they expected but once they spend <br>some time with you, they can't get enough! This<br> can be attributed to how down-to-earth you are<br> and the spontaneous adventures you embark on.</p>
+<p><img src="https://i.ebayimg.com/images/g/JW0AAOSwhQhY0sWz/s-l300.jpg" height="500" width="350"/></p>
+  </div>
+</div>
+
+<p>
+<script>
+
+var verbose = true
+
+var num_selections = 0
+while (1) {
+  var e = document.getElementById('r' + (num_selections + 1))
+  if (e === null) break
+  ++num_selections
+}
+if (num_selections == 0) window.alert('unexpected: no section ids (r1, r2, etc.)')
+if (verbose) console.log('num_selections = ' + num_selections)
+
+num_questions = 0
+while (1) {
+  var e = document.getElementsByName('q' + (num_questions + 1))
+  if (e.length == 0) break
+  ++num_questions
+  if (e.length < 2) window.alert('unexpected: q' + num_questions + ' has less than 2 answers')
+}
+if (num_questions == 0) window.alert('unexpected: no question names (q1, q2, etc.)')
+if (verbose) console.log('num_questions = ' + num_questions)
+
+function hide_selections() {
+  if (!always_show) {
+    if (verbose) console.log('hide_selections()')
+    document.getElementById('incomplete').style.display = 'none'
+    for (var s=1; s <= num_selections; ++s) {
+      document.getElementById('r' + s).style.display = 'none'
+    }
+  }
+}
+
+hide_selections()
+
+function select() {
+  if (verbose) console.log('select()')
+  hide_selections()
+  var incomplete = false  
+  var scores = new Array(num_selections)
+  for (var s = 1; s <= num_selections; ++s) scores[s-1] = 0
+  for (var q = 1; q <= num_questions; ++q) {
+    var answers = document.getElementsByName('q' + q)
+    var choice = false
+    for (var a = 0; a < answers.length; ++a) {
+      if (answers[a].checked) {
+        choice = answers[a].value
+        break
+      }
+    }
+    if (choice === false) {
+      incomplete = true
+      break
+    }
+    if (verbose) console.log('q' + q + ': answer = ' + choice)
+    var answer = choice.substr(1)
+    for (var s = 1; s <= num_selections; ++s) {
+      var w = weights[q-1][answer-1][s-1]
+      if (typeof w === 'undefined') window.alert('error: could not find weight for q' + q + 'a' + answer + 'r' + s)
+      scores[s-1] += w
+      if (verbose) console.log('score[' + s + '] += ' + w) 
+    }
+  }
+  if (incomplete) {
+    if (verbose) console.log('incomplete')
+    document.getElementById('incomplete').style.display = 'block'
+  } else {
+    var maxscore = Number.MIN_VALUE
+    var pick = 0
+    for (var s = 1; s <= num_selections; ++s) {
+      if (verbose) console.log('score[' + s + '] == ' + scores[s-1])
+      if (scores[s-1] > maxscore) {
+        pick = s
+        maxscore = scores[s-1]
+      }
+    }
+    if (verbose) console.log('pick = r' + pick)
+    document.getElementById('r' + pick).style.display = 'block'
+  }
+}
+// ]]></script>
+</p>
+</body>
+</html>
